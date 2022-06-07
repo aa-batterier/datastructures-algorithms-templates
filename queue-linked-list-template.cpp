@@ -66,19 +66,6 @@ class Queue
                         _size--;
                 }
 
-                void insert(Link *pBefore, const double data)
-                {
-                        (*pBefore)._pNext = new Link(data, (*pBefore)._pNext);
-                }
-
-                void eraseAfter(Link *pBefore)
-                {
-                        assert(_size > 0);
-                        Link *pDelete = (*pBefore)._pNext;
-                        (*pBefore)._pNext = (*pDelete)._pNext;
-                        delete pDelete;
-                }
-
                 Link* getBegining(void)
                 {
                         return _pBegining;
