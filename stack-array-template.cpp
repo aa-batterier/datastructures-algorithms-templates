@@ -53,7 +53,7 @@ class Stack
                                 _pArr = newArr;
                                 _capacity =* 2;
                         }
-                        _arr[_size] = x;
+                        _pArr[_size] = data;
                         _size++;
                 }
 
