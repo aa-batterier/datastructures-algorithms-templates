@@ -78,7 +78,7 @@ class Queue
 
                 double& getData(void)
                 {
-                        return (*_pEnd)._data;
+                        return (*_pBegining)._data;
                 }
 
                 const int getSize(void)
