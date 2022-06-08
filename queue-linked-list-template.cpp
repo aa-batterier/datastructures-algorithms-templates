@@ -12,7 +12,7 @@ class Queue
                 struct Link
                 {
                         // Constructor for the struct.
-                        Link(const double data, Link* pNext) : _data(data), _pNext(pNext) {}
+                        Link(const double data = 0, Link* pNext = nullptr) : _data(data), _pNext(pNext) {}
                         double _data;
                         Link *_pNext;
                 };
@@ -52,8 +52,16 @@ class Queue
                 void push(const double data)
                 {
                         Link *pNew = new Link(data, nullptr);
-                        (*_pEnd)._pNext = pNew;
-                        _pEnd = pNew;
+                        if (_pBegining == nullptr)
+                        {
+                                _pBegining = pNew;
+                                _pEnd = pNew;
+                        }
+                        else
+                        {
+                                (*_pEnd)._pNext = pNew;
+                                _pEnd = pNew;
+                        }
                         _size++;
                 }
 
@@ -61,9 +69,12 @@ class Queue
                 {
                         assert(_size > 0);
                         Link *pDelete = _pBegining;
-                        _pBegining = (*pDelete)._pNext;
-                        delete pDelete;
-                        _size--;
+                        if (pDelete != nullptr)
+                        {
+                                _pBegining = (*pDelete)._pNext;
+                                delete pDelete;
+                                _size--;
+                        }
                 }
 
                 Link* getBegining(void)
