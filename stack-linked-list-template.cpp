@@ -28,11 +28,27 @@ class Stack
 
                 Stack(const Stack& other) // Copies the object.
                 {
+                        /*
                         _pTop = nullptr;
                         _size = 0;
                         while (_size < other.getSize())
                         {
                                 push(other.getData());
+                        }
+                        */
+                        _size = other.getSize();
+                        for (Link *p = other.getTop(), *pPrev = nullptr; p != nullptr; p = p->_pNext)
+                        {
+                                Link *pCopy = new Link(p->_data, nullptr);
+                                if (pPrev == nullptr)
+                                {
+                                        _pTop = pCopy;
+                                }
+                                else
+                                {
+                                        pPrev->_pNext = pCopy;
+                                }
+                                pPrev = pCopy;
                         }
                 }
 
@@ -57,7 +73,7 @@ class Stack
                         assert(_size > 0);
                         Link *pDelete = _pTop;
                         _pTop = (*pDelete)._pNext;
-                        delete pDelete;
+                        delete [] pDelete;
                         _size--;
                 }
 
@@ -71,6 +87,7 @@ class Stack
                         assert(_size > 0);
                         Link *pDelete = (*pBefore)._pNext;
                         (*pBefore)._pNext = (*pDelete)._pNext;
+                        //delete [] pDelete;
                         delete pDelete;
                 }
 
