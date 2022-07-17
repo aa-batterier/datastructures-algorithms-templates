@@ -1,25 +1,25 @@
 -module(selectionsort).
--export([naiveSort/1,efficientSort/1]).
+-export([naive/1,efficient/1]).
 
 %% Naive implementation.
-naiveSort([]) ->
+naive([]) ->
         [];
-naiveSort(List) ->
+naive(List) ->
         M = lists:min(List),
-        [M | naiveSort(lists:delete(M,List))].
+        [M|naive(lists:delete(M,List))].
 
 %% Efficient implementation.
 split([],Minimum,Rest) ->
-        [Minimum | efficientSort(Rest)];
+        [Minimum|efficient(Rest)];
 split([Head|Tail],Minimum,Rest) ->
         case Head < Minimum of
                 true ->
-                        split(Tail,Head,[Minimum | Rest]);
+                        split(Tail,Head,[Minimum|Rest]);
                 false ->
-                        split(Tail,Minimum,[Head | Rest])
+                        split(Tail,Minimum,[Head|Rest])
         end.
 
-efficientSort([]) ->
+efficient([]) ->
         [];
-efficientSort([Head|Tail]) ->
+efficient([Head|Tail]) ->
         split(Tail,Head,[]).
