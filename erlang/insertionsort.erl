@@ -1,5 +1,5 @@
 -module(insertionsort).
--export([naive/1,efficient/1,efficientInsert/2]).
+-export([naive/1,efficient/1,betterEfficient/1]).
 
 %% Naive implementation.
 naiveInsert(Head,Tail) ->
@@ -10,11 +10,14 @@ naive([]) ->
 naive([Head|Tail]) ->
         naiveInsert(Head,naive(Tail)).
 
+%% Efficient implementation with naive insert.
+efficient(List) ->
+        lists:foldr(fun(Key,InnerList) -> naiveInsert(Key,InnerList) end,[],List).
+
 %% Efficient implementation.
 efficientInsert(Key,[]) ->
         [Key];
-efficientInsert(Key,List) ->
-        [Head|Tail] = List,
+efficientInsert(Key,[Head|Tail] = List) ->
         case Key =< Head of
                 true ->
                         [Key|List];
@@ -22,8 +25,5 @@ efficientInsert(Key,List) ->
                         [Head|efficientInsert(Key,Tail)]
         end.
 
-%% Get this error from efficient implementation of insertion sort.
-%% ** exception error: no function clause matching lists:foldr(naiveInsert,[],[]) (lists.erl, line 1279)
-%%      in function  lists:foldr/3 (lists.erl, line 1280)
-efficient(List) ->
-        lists:foldr(efficientInsert,[],List).
+betterEfficient(List) ->
+        lists:foldr(fun(Key,InnerList) -> efficientInsert(Key,InnerList) end,[],List).

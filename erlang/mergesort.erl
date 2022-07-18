@@ -5,9 +5,7 @@ merge([],B) ->
         B;
 merge(A,[]) ->
         A;
-merge(A,B) ->
-        [AHead|ATail] = A,
-        [BHead|BTail] = B,
+merge([AHead|ATail] = A,[BHead|BTail] = B) ->
         case AHead =< BHead of
                 true ->
                         [AHead|merge(ATail,B)];
